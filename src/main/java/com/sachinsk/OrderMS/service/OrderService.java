@@ -7,6 +7,7 @@ import com.sachinsk.OrderMS.entity.Order;
 import com.sachinsk.OrderMS.repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class OrderService {
@@ -16,6 +17,9 @@ public class OrderService {
 
     @Autowired
     SequenceGenerator sequenceGenerator;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     public OrderDTO saveOrderInDB(OrderDTOFromFrontEnd orderDetailsReceived) {
         //our task is to pass the foodItemsList & restaurant from OrderDTOFromFrontEnd
@@ -37,6 +41,10 @@ public class OrderService {
     }
 
     private UserDTO fetchOrderDetailsfromUserId(Integer userId) {
-        return null;
+
+        //using restTemplate
+        //in below whatever we get as a response from url=, i.e passed to UserDTO.class
+        UserDTO userDTO = restTemplate.getForObject("http://USER-SERVICE/user/fetchById/" + userId, UserDTO.class);
+        return userDTO;
     }
 }
