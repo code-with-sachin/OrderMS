@@ -4,6 +4,7 @@ import com.sachinsk.OrderMS.dto.OrderDTO;
 import com.sachinsk.OrderMS.dto.OrderDTOFromFrontEnd;
 import com.sachinsk.OrderMS.dto.UserDTO;
 import com.sachinsk.OrderMS.entity.Order;
+import com.sachinsk.OrderMS.mapper.OrderMapper;
 import com.sachinsk.OrderMS.repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,10 @@ public class OrderService {
                 orderDetailsReceived.getRestaurant(),
                 userDTO);
 
-        return null;
+        //saving order in MongoDB
+        orderRepository.save(orderToBeSaved);
+
+        return OrderMapper.INSTANCE.mapOrderToOrderDTO(orderToBeSaved);
 
     }
 
