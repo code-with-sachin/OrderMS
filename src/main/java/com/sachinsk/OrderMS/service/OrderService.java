@@ -48,7 +48,7 @@ public class OrderService {
 
         //using restTemplate
         //in below whatever we get as a response from url=, i.e passed to UserDTO.class
-        UserDTO userDTO = restTemplate.getForObject("http://USER-SERVICE/user/fetchById/" + userId, UserDTO.class);
+        UserDTO userDTO = restTemplate.getForObject("http://USER-SERVICE/user/fetchUserById/" + userId, UserDTO.class);
         return userDTO;
     }
 }
